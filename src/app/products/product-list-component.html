@@ -36,7 +36,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor='let product of products'>
+            <tr *ngFor='let product of filteredProducts'>
                 <td><img *ngIf='showImage'
                          [src]='product.imageUrl'
                          [title]='product.productName'
@@ -44,11 +44,13 @@
                          [style.margin.px]='imageMargin'>
                 </td>
                 <td>{{ product.productName }}</td>
-                <td>{{ product.productCode | lowercase}}</td>
+                <td>{{ product.productCode | lowercase | convertToSpaces:'-' }}</td>
                 <td>{{ product.releaseDate }}</td>
 <!-- //NOTE: also possible: | currency:'USD':'symbol':'1.2-2'  -->
                 <td>{{ product.price | currency }}</td> 
-                <td>{{ product.starRating }}</td>
+                <td><pm-star [rating]='product.starRating'
+                             (ratingClicked) ='onRatingClicked($event)'><!-- //NOTE: event listening -->
+                </pm-star></td>
             </tr>
 
         </tbody>
