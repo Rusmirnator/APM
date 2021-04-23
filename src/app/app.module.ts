@@ -10,6 +10,7 @@ import { StarComponent } from './shared/star.component';
 import { ProductDetailComponent } from './products/product-detail.component';
 import { WelcomeComponent } from './home/welcome.component';
 import { RouterModule } from '@angular/router';
+import { ProductDetailGuard } from './products/product-detail.guard';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,9 @@ import { RouterModule } from '@angular/router';
     HttpClientModule,
     RouterModule.forRoot([ //Note: this is where routes are configured - inside modules, don't use leading slash, order matters
       { path: 'products', component: ProductListComponent}, //Note: if component is nested inside another, no need for route
-      { path: 'products/:id', component: ProductDetailComponent},
+      { path: 'products/:id',
+        canActivate: [ProductDetailGuard],
+       component: ProductDetailComponent},
       { path: 'welcome', component: WelcomeComponent},
       { path: '', redirectTo: 'welcome', pathMatch: 'full'},
       { path: '**', redirectTo: 'welcome', pathMatch: 'full'}
